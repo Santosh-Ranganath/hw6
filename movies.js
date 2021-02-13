@@ -44,15 +44,20 @@ window.addEventListener('DOMContentLoaded', async function(event) {
   // </div>
   // ⬇️ ⬇️ ⬇️
 
-let querySnapshot = await db.collection('movies').get()
+  // let querySnapshot = await db.collection('movies').get()
+  // let watchedMovies = querySnapshot.docs 
+  // console.log(watchedMovies)
+  // for ( let j = 0; j<watchedMovies.length; j++) {
+  //   let mID = watchedMovies[j].id
+  //   document.querySelector(`.movie-${mID}`).classList.add('opacity-20')
 
-let watchedMovies = querySnapshot.docs 
-console.log(watchedMovies)
+  //   console.log(mID)}
 
 for (i = 0; i<movies.length; i++){
 let movieList = movies[i]
 let movieListID = movieList.id
 let movieListImg = movieList.poster_path
+// console.log(movieListID)
 
 let movieOutput = document.querySelector('.movies')
 movieOutput.insertAdjacentHTML('beforeend', `
@@ -61,6 +66,13 @@ movieOutput.insertAdjacentHTML('beforeend', `
      <a href="#" class="watched-button block text-center text-white bg-green-500 mt-4 px-4 py-2 rounded">I've watched this!</a>
    </div>
 `)
+
+  
+  
+
+
+
+
 // console.log(movieImg)
 
   // ⬆️ ⬆️ ⬆️ 
@@ -83,13 +95,21 @@ let movieButton = document.querySelector(`.movie-${movieListID} .watched-button`
 
 movieButton.addEventListener(`click`, async function(event) { 
   event.preventDefault()
-  console.log(`${movieListID} was clicked`)
+  // console.log(`${movieListID} was clicked`)
 
   document.querySelector(`.movie-${movieListID}`).classList.add('opacity-20')
   await db.collection('movies').doc(`${movieListID}`).set({})
 })
 
 }
+  let querySnapshot = await db.collection('movies').get()
+  let watchedMovies = querySnapshot.docs 
+  console.log(watchedMovies)
+  for ( let j = 0; j<watchedMovies.length; j++) {
+    let mID = watchedMovies[j].id
+    document.querySelector(`.movie-${mID}`).classList.add('opacity-20')
+
+    console.log(mID)}
 
   // ⬆️ ⬆️ ⬆️ 
   // End Step 3
